@@ -16,8 +16,7 @@ public class IntegerApplication {
     /// @param year заданный год, гарантируется, что нашей эры
     /// @return является ли год високосным?
     public static boolean isLeapYear(int year) {
-        // Реализуй логику
-        return true;
+        return (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
     }
 
     /// Посчитать на каком этаже квартира, и какая у неё дверь на лестничной площадке
@@ -28,17 +27,21 @@ public class IntegerApplication {
     ///
     /// Пример:
     ///   1. 3 квартиры на этаже, 13 квартира - это 5 этаж, 1 квартира на лестничной площадке
-    ///   2. 4 квартиры на этаже, 8 квартира - это 3 этаж, 2 квартира на лестничной площадке
+    ///   2. 3 квартиры на этаже, 8 квартира - это 3 этаж, 2 квартира на лестничной площадке
     ///   3. 4 квартиры на этаже, 27 квартира - это 7 этаж, 3 квартира на лестничной площадке
     ///
     /// @param flatOnFloorCount количество квартир на одном этаже (точно одна или более)
     /// @param flatNumber номер искомой квартиры
     /// @return массив, где первое число - искомый этаж, второе число - искомый номер квартиры на этаже
     public static int[] floorAndFlatCalculate(int flatOnFloorCount, int flatNumber) {
-        // реализуй логику
+        int flatOnFloorNumber =  flatNumber % flatOnFloorCount == 0 ? flatOnFloorCount : flatNumber % flatOnFloorCount;
+        int floorNumber =
+                flatOnFloorCount > flatOnFloorNumber ?
+                        (flatNumber / flatOnFloorCount) + 1
+                        : flatNumber / flatOnFloorCount;
         return new int[] {
-                // floorNumber,
-                // flatOnFloorNumber
+                floorNumber,
+                flatOnFloorNumber
         };
     }
 
@@ -60,12 +63,15 @@ public class IntegerApplication {
     /// @return массив, где первое число отвечает за 5000 купюру, второе - за 2000, третье - 1000 и четвертое 500. Если
     ///         купюра не должна быть выдано, число этой купюры будет 0
     public static int[] withdrawCash(int sum) {
-        // реализуй решение
+        int banknote5000count = sum / 5000;
+        int banknote2000count =  (sum - 5000 * banknote5000count) / 2000;
+        int banknote1000count =  (sum - 5000 * banknote5000count - 2000 * banknote2000count) / 1000;
+        int banknote500count = (sum - 5000 * banknote5000count - 2000 * banknote2000count - 1000 * banknote1000count) / 500;
         return new int[] {
-                // banknote5000count,
-                // banknote2000count,
-                // banknote1000count,
-                // banknote500count
+                banknote5000count,
+                banknote2000count,
+                banknote1000count,
+                banknote500count
         };
     }
 }
