@@ -1,5 +1,7 @@
 package ru.zmo00.javaded;
 
+import org.jspecify.annotations.NonNull;
+
 /// Задание по целочисленным типам данных
 public class IntegerApplication {
 
@@ -36,8 +38,8 @@ public class IntegerApplication {
     public static int[] floorAndFlatCalculate(int flatOnFloorCount, int flatNumber) {
         int flatOnFloorNumber =  flatNumber % flatOnFloorCount == 0 ? flatOnFloorCount : flatNumber % flatOnFloorCount;
         int floorNumber =
-                flatOnFloorCount > flatOnFloorNumber ?
-                        (flatNumber / flatOnFloorCount) + 1
+                flatOnFloorCount > flatOnFloorNumber
+                        ? (flatNumber / flatOnFloorCount) + 1
                         : flatNumber / flatOnFloorCount;
         return new int[] {
                 floorNumber,
@@ -63,10 +65,19 @@ public class IntegerApplication {
     /// @return массив, где первое число отвечает за 5000 купюру, второе - за 2000, третье - 1000 и четвертое 500. Если
     ///         купюра не должна быть выдано, число этой купюры будет 0
     public static int[] withdrawCash(int sum) {
+        int remain = sum;
+
         int banknote5000count = sum / 5000;
-        int banknote2000count =  (sum - 5000 * banknote5000count) / 2000;
-        int banknote1000count =  (sum - 5000 * banknote5000count - 2000 * banknote2000count) / 1000;
-        int banknote500count = (sum - 5000 * banknote5000count - 2000 * banknote2000count - 1000 * banknote1000count) / 500;
+        remain -= 5000 * banknote5000count;
+
+        int banknote2000count =  remain / 2000;
+        remain -= 2000 * banknote2000count;
+
+        int banknote1000count =  remain / 1000;
+        remain -= 1000 * banknote1000count;
+
+        int banknote500count = remain / 500;
+
         return new int[] {
                 banknote5000count,
                 banknote2000count,
