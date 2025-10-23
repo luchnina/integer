@@ -1,7 +1,5 @@
 package ru.zmo00.javaded;
 
-import org.jspecify.annotations.NonNull;
-
 /// Задание по целочисленным типам данных
 public class IntegerApplication {
 
